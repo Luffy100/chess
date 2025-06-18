@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中国象棋</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <h1>中国象棋</h1>
+        <div class="game-info">
+            <div class="current-player">
+                当前玩家: <span id="current-player">红方</span>
+            </div>
+            <div class="game-status">
+                状态: <span id="game-status">游戏进行中</span>
+            </div>
+            <div class="game-controls">
+                <button id="reset-btn">重新开始</button>
+                <button id="online-btn" class="btn">开启联机</button>
+                <button id="create-room-btn" class="btn" style="display: none;">创建房间</button>
+                <button id="join-room-btn" class="btn" style="display: none;">加入房间</button>
+            </div>
+        </div>
+        <div class="board-container">
+            <canvas id="chess-board" width="540" height="600"></canvas>
+        </div>
+        <div class="captured-pieces">
+            <div class="red-captured">
+                <h3>红方吃掉的棋子</h3>
+                <div id="red-captured-pieces"></div>
+            </div>
+            <div class="black-captured">
+                <h3>黑方吃掉的棋子</h3>
+                <div id="black-captured-pieces"></div>
+            </div>
+        </div>
+    </div>
+    <script src="chess.js"></script>
+</body>
+</html>

@@ -1,0 +1,309 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', Arial, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.game-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.current-player, .game-status {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+}
+
+#current-player {
+    color: #dc3545;
+}
+
+.game-controls {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn, #reset-btn {
+    background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-size: 0.9em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(238, 90, 36, 0.3);
+    white-space: nowrap;
+}
+
+.btn:hover, #reset-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(238, 90, 36, 0.4);
+}
+
+#online-btn {
+    background: linear-gradient(45deg, #4ecdc4, #44a08d);
+    box-shadow: 0 4px 15px rgba(78, 205, 196, 0.3);
+}
+
+#online-btn:hover {
+    box-shadow: 0 6px 20px rgba(78, 205, 196, 0.4);
+}
+
+#online-btn.online-active {
+    background: linear-gradient(45deg, #f093fb, #f5576c);
+    box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+}
+
+#create-room-btn, #join-room-btn {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+#create-room-btn:hover, #join-room-btn:hover {
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+}
+
+.board-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+    padding: 20px;
+    background: #8B4513;
+    border-radius: 15px;
+    box-shadow: inset 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#chess-board {
+    border: 3px solid #654321;
+    border-radius: 10px;
+    background: #DEB887;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+}
+
+.captured-pieces {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    gap: 20px;
+}
+
+.red-captured, .black-captured {
+    flex: 1;
+    background: #f8f9fa;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.red-captured h3 {
+    color: #dc3545;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+.black-captured h3 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+}
+
+#red-captured-pieces, #black-captured-pieces {
+    min-height: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.captured-piece {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    margin: 2px;
+}
+
+.captured-piece.red {
+    background: linear-gradient(45deg, #dc3545, #c82333);
+    border: 2px solid #a71e2a;
+}
+
+.captured-piece.black {
+    background: linear-gradient(45deg, #333, #555);
+    border: 2px solid #222;
+}
+
+/* 提示框样式 */
+.check-alert, .message-alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: linear-gradient(45deg, #ff9a9e, #fecfef);
+    color: #333;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    font-weight: bold;
+    font-size: 1.1em;
+    animation: slideIn 0.3s ease-out;
+    max-width: 300px;
+    word-wrap: break-word;
+}
+
+.game-end-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.alert-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    animation: popIn 0.5s ease-out;
+}
+
+.alert-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.alert-content button {
+    background: linear-gradient(45deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.alert-content button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes popIn {
+    from {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .game-container {
+        padding: 20px;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .game-info {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .game-controls {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn, #reset-btn {
+        width: 100%;
+        margin: 5px 0;
+    }
+    
+    #chess-board {
+        width: 100%;
+        max-width: 400px;
+        height: auto;
+    }
+    
+    .captured-pieces {
+        flex-direction: column;
+    }
+    
+    .check-alert, .message-alert {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        max-width: none;
+        font-size: 1em;
+    }
+}
